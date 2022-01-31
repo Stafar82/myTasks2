@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleApp56
+{
+    public enum Direction
+    {
+        Up,
+        Left,
+        Right,
+        Down
+    }
+    public class Player : GameObject, IMovable
+    {
+        public Player(Coordinates coordinates, string icon) : base(coordinates, icon) { }
+        public Player(string icon) : base(icon) { }
+
+        public void Move(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    position.Y--;
+                    break;
+                case Direction.Left:
+                    position.X--;
+                    break;
+                case Direction.Right:
+                    position.X++;
+                    break;
+                case Direction.Down:
+                    position.Y++;
+                    break;
+            }
+        }
+    }
+}
