@@ -37,11 +37,17 @@ namespace ConsoleApp1
         {
             get => Math.Sqrt(HaflPerimetr * (HaflPerimetr - LeftSide.Lenght) * (HaflPerimetr - RightSide.Lenght) * (HaflPerimetr - BottomSide.Lenght));
         }
+
+        public double Area
+        {
+            get => 1 / 2 * (BottomSide.Lenght * (2 * Math.Sqrt(HaflPerimetr * (HaflPerimetr - LeftSide.Lenght) * (HaflPerimetr - RightSide.Lenght) * (HaflPerimetr - BottomSide.Lenght) / LeftSide.Lenght)));
+        }
         public override void Print()
         {
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$");
             Console.WriteLine("Фигура : треугольник");
             Console.WriteLine("Периметр : {0}", Perimetr);
+            Console.WriteLine("Площадь : {0}", Area);
             Console.WriteLine("Тип : {0}", Type);
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$");
         }

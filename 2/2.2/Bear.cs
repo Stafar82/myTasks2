@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ConsoleApp56.Abstracts;
 
 namespace ConsoleApp56
 {
-    public class Bear : GameObject, IEnemy
+    public class Bear : Enemy
     {
         public Bear(Coordinates coordinates, string icon) : base(coordinates, icon) { }
         public Bear(string icon) : base(icon) { }

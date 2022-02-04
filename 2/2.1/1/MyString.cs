@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,51 +7,55 @@ namespace ConsoleApp70
 {
     public class MyString : IComparable<MyString>
     {
-        private char[] charArray;
+        private char[] _charArray;
 
         public MyString(string otherString)
         {
-            charArray = otherString.ToCharArray();
+            _charArray = otherString.ToCharArray();
         }
-        
-        public int Lenght { get => charArray.Length; }
+        public MyString(char[] array)
+        {
+            _charArray = array;
+        }
+
+        public int Length => _charArray.Length;
 
         public MyString Concat (MyString otherString)
         {
-            if (charArray.Length == 0)
+            if (_charArray.Length == 0)
                 throw new ArgumentOutOfRangeException();
 
-            var temp = new char[charArray.Length + otherString.Lenght];
+            var temp = new char[_charArray.Length + otherString.Length];
 
-            for(int i = 0; i < charArray.Length; i++)
+            for(int i = 0; i < _charArray.Length; i++)
             {
-                temp[i] = charArray[i]; 
+                temp[i] = _charArray[i]; 
             }
-            for (int i = charArray.Length; i < temp.Length; i++)
+            for (int i = _charArray.Length; i < temp.Length; i++)
             {
-                temp[i] = charArray[i - charArray.Length];
+                temp[i] = _charArray[i - _charArray.Length];
             }
 
-            return ToMyString(temp);
+            return new MyString(temp);
         }
 
 
         public char[] ToCharArray(MyString str)
         {
-            return charArray;
-        }
-
-        public static MyString ToMyString(char[] array)
-        {
-            return new MyString(array.ToString());
+            var temp = new char[_charArray.Length];
+            for (int i = 0; i < _charArray.Length; i++)
+            {
+                temp[i] = _charArray[i];
+            }
+            return temp;
         }
 
         public int CompareTo(MyString other)
         {
-            if (charArray.Length > other.Lenght)
+            if (_charArray.Length > other.Length)
                 return 1;
 
-            if (charArray.Length < other.Lenght)
+            if (_charArray.Length < other.Length)
                 return -1;
 
             else return 0;
@@ -58,12 +63,30 @@ namespace ConsoleApp70
 
         public char this[int index]
         {
-            get { return charArray[index]; }
-            set { charArray[index] = value; }
+            get { return _charArray[index]; }
+            set { _charArray[index] = value; }
         }
         public static MyString operator +(MyString str, MyString otherString)
         {
             return str.Concat(otherString);
+        }
+
+        public static MyString operator +(MyString str, string otherString)
+        {
+            return str.Concat(new MyString(otherString));
+        }
+        public static MyString operator +(string otherString, MyString str)
+        {
+            return new MyString(otherString).Concat(str);
+        }
+
+        public static MyString operator +(char charSymbol, MyString str)
+        {
+            return new MyString(charSymbol.ToString()).Concat(str);
+        }
+        public static MyString operator +(MyString str, char charSymbol)
+        {
+            return str.Concat(new MyString(charSymbol.ToString()));
         }
 
     }

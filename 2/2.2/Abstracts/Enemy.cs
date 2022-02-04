@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ConsoleApp56.Abstracts;
 
-namespace ConsoleApp56
+namespace ConsoleApp56.Abstracts
 {
-    public class Wolf : Enemy
+    abstract public class Enemy : GameObject, IMovable
     {
-        public Wolf(Coordinates coordinates, string icon) : base(coordinates, icon) { }
-        public Wolf(string icon) : base(icon) { }
+        protected Enemy(Coordinates coordinates) : base(coordinates)
+        {
+        }
+
+        protected Enemy(string icon) : base(icon)
+        {
+        }
+
+        protected Enemy(Coordinates coordinates, string icon) : base(coordinates, icon)
+        {
+        }
 
         public void Move(Direction direction)
         {
@@ -27,11 +35,6 @@ namespace ConsoleApp56
                     position.Y++;
                     break;
             }
-        }
-
-        public void Hello()
-        {
-            throw new NotImplementedException();
         }
     }
 }
